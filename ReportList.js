@@ -13,20 +13,23 @@ const styles = {
 
 // The data prop, which is provided by the wrapper below contains,
 // a `loading` key while the query is in flight and posts when ready
-function ReportList({ data: { loading, error,  reports } }) {
-    console.log(`Data loading: ${loading} error: ${error} reports: ${reports}`)
-  if (loading) {
+function ReportList({ data }) {
+  console.log(data)
+  const error = data.error
+  if (data.loading) {
     return <Text style={styles.outer}>Loading</Text>;
   } else if (error){
     return <Text style={styles.outer}>{error.message}</Text>;
-    } else if (!reports){
-    return <Text style={styles.outer}>No data!</Text>;
-  } else {
-    console.log(`data ${reports}`)
+    } else {
+    const reports = data.reports
+    if (!reports){
+      return <Text style={styles.outer}>No data!</Text>;
+    } 
+    console.log(reports)
     return (
       <View style={styles.outer}>
         {reports.map(report => (
-          <View key={report.id} style={styles.wrapper}>
+          <View key={report._id} style={styles.wrapper}>
             <View>
               <Text style={styles.header}>{report.status}</Text>
               <View style={styles.subtextWrapper}>
@@ -34,7 +37,7 @@ function ReportList({ data: { loading, error,  reports } }) {
                   at {report.location.lat} {' '}
                   {report.location.lng} {' '}
                 </Text>
-                <Text style={styles.votes}>{report.location.place_name}</Text>
+                <Text style={styles.votes}>{report.location.placeName}</Text>
               </View>
             </View>
           </View>
@@ -48,16 +51,16 @@ function ReportList({ data: { loading, error,  reports } }) {
 // available on the `data` prop of the wrapped component (ReportList here)
 export default graphql(gql`
 query allReports{
-    viewer {
-      reports {
-        status
-        source
-        date
-        location {
-          lat
-          lng
-          place_name
-        }
+    reports {
+      _id
+      status
+      source
+      date
+      votes
+      location {
+        lat
+        lng
+        placeName
       }
     }
   }
