@@ -38,7 +38,7 @@ class ReportItem extends Component {
     render(){
         const { report } = this.state
         return (
-            <View>
+            <View style={styles.reportItem}>
                 <Text>{report.status}</Text>
                 <Text>{report.date}</Text>
                 <Text>{report.source}</Text>

@@ -24,6 +24,7 @@ class ReportList extends Component {
         <ListView
           dataSource={ds.cloneWithRows(reports)}
           renderRow={this.renderRow}
+          style={styles.container}
         />
       );
     }
