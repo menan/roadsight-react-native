@@ -81,26 +81,26 @@ const withData = graphql(gql`
 
 
 const withUpVoteMutations = graphql(gql`
-  mutation upVote($id: ID!) {
-    upVote(_id: $id) {
+  mutation upVote($_id: String!) {
+    upVote(_id: $_id) {
       votes
     }
   }
   `, {
   props: ({ mutate }) => ({
-    voteUp: ({ id }) => mutate({ variables: { id } }),
+    voteUp: ({ _id }) => mutate({ variables: { _id } }),
   }),
 });
 
 const withDownVoteMutations = graphql(gql`
-  mutation downVote($id: ID!) {
-    downVote(_id: $id) {
+  mutation downVote($_id: String!) {
+    downVote(_id: $_id) {
       votes
     }
   }
   `, {
   props: ({ mutate }) => ({
-    voteDown: ({ id }) => mutate({ variables: { id } }),
+    voteDown: ({ _id }) => mutate({ variables: { _id } }),
   }),
 });
 
