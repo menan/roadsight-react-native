@@ -1,0 +1,29 @@
+dependencies: \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/DevSupport/RCTPackagerConnection.m \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/DevSupport/RCTPackagerConnection.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Base/RCTConvert.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Views/RCTAnimationType.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Views/RCTBorderStyle.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Base/RCTUtils.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Views/RCTPointerEvents.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/Views/RCTTextDecorationLineType.h \
+  /Users/mvadivel1/Projects/roadsight/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/mvadivel1/Projects/roadsight/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/mvadivel1/Projects/roadsight/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/../Libraries/WebSocket/RCTReconnectingWebSocket.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/../Libraries/WebSocket/RCTSRWebSocket.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/../Libraries/WebSocket/RCTWebSocketObserver.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/DevSupport/RCTPackagerConnectionBridgeConfig.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/DevSupport/RCTPackagerConnectionConfig.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/DevSupport/RCTReloadPackagerMethod.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/DevSupport/RCTPackagerClient.h \
+  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/React/DevSupport/RCTSamplingProfilerPackagerMethod.h

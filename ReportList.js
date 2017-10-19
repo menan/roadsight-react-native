@@ -9,9 +9,28 @@ import gql from 'graphql-tag';
 class ReportList extends Component {
   constructor() {
     super();
-
     this.renderRow = this.renderRow.bind(this);
   }
+
+  componentDidMount(){
+    this.getLocation()
+  }
+
+  getLocation(){
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    }
+
+    
+    navigator.geolocation.getCurrentPosition(function(coords){
+      console.log('coordinates', coords)
+    }, function error(err){
+      console.log('error locating you', err)
+    }, options);
+  }
+
 
   renderList() {
     const { reports } = this.props;
