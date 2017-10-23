@@ -10,6 +10,14 @@ class ReportList extends Component {
   constructor() {
     super();
     this.renderRow = this.renderRow.bind(this);
+    this.state = {
+      coords: {
+        latitude: -75.23903,
+        longitude: -42.32903,
+      },
+      reports: [],
+      max: 500,
+    }
   }
 
   componentDidMount(){
@@ -24,8 +32,12 @@ class ReportList extends Component {
     }
 
     
-    navigator.geolocation.getCurrentPosition(function(coords){
-      console.log('coordinates', coords)
+    navigator.geolocation.getCurrentPosition(function(coordinates){
+      console.log('coordinates', coordinates)
+      if (!coordinates) return;
+      this.setState({
+        coords: coordinates
+      })
     }, function error(err){
       console.log('error locating you', err)
     }, options);
@@ -94,10 +106,42 @@ const withData = graphql(gql`
   props: ({ data: { loading, reports } }) => {
     return {
       loading,
-      reports,
+      reportsAll,
     };
   },
 });
+
+const withAllReports = graphql(gql`
+  query closeReports($lat: Float!, $lat: Float!, $max: Int!){
+    reports{
+      _id
+      status
+      source
+      date
+      votes
+      location {
+        lat
+        lng
+        placeName
+      }
+    }
+  }
+`,{
+  options: {
+    variables: {
+      lat: state.coords.latitude,
+      lng: state.coords.longitude,
+      max: 500,
+    }
+  },
+  props: ({ data: { loading, reports } }) => {
+    return {
+      loading,
+      reports,
+    };
+  },
+
+})
 
 
 const withUpVoteMutations = graphql(gql`
@@ -130,4 +174,5 @@ ReportList.propTypes = {
   voteDown: PropTypes.func.isRequired,
 };
 
-export default withUpVoteMutations(withDownVoteMutations(withData(ReportList)));
+
+export default withUpVoteMutations(withDownVoteMutations(withAllReports(ReportList)));
