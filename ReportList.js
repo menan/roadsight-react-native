@@ -10,50 +10,21 @@ class ReportList extends Component {
   constructor() {
     super();
     this.renderRow = this.renderRow.bind(this);
-    this.state = {
-      coords: {
-        latitude: -75.23903,
-        longitude: -42.32903,
-      },
-      reports: [],
-      max: 500,
-    }
   }
 
-  componentDidMount(){
-    this.getLocation()
-  }
-
-  getLocation(){
-    const options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
-    }
-
-    
-    navigator.geolocation.getCurrentPosition(function(coordinates){
-      console.log('coordinates', coordinates)
-      if (!coordinates) return;
-      this.setState({
-        coords: coordinates
-      })
-    }, function error(err){
-      console.log('error locating you', err)
-    }, options);
-  }
 
 
   renderList() {
-    const { reports } = this.props;
-    if (reports && reports.length !== 0) {
+    const { reportsCloseBy } = this.props;
+    if (reportsCloseBy && reportsCloseBy.length !== 0) {
       const ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2,
       });
 
+
       return (
         <ListView
-          dataSource={ds.cloneWithRows(reports)}
+          dataSource={ds.cloneWithRows(reportsCloseBy)}
           renderRow={this.renderRow}
           style={styles.container}
         />
@@ -77,6 +48,7 @@ class ReportList extends Component {
   }
 
   render() {
+    console.log('state',this.state, 'props', this.props)
     const { loading } = this.props;
     return (
       <View style={styles.container}>
@@ -86,60 +58,35 @@ class ReportList extends Component {
   }
 }
 
-const withData = graphql(gql`
-  query allReports{
-      reports {
-        _id
-        status
-        source
-        date
-        votes
-        location {
-          lat
-          lng
-          placeName
-        }
-      }
-    }
-    
-  `, {
-  props: ({ data: { loading, reports } }) => {
-    return {
-      loading,
-      reportsAll,
-    };
-  },
-});
-
 const withAllReports = graphql(gql`
-  query closeReports($lat: Float!, $lat: Float!, $max: Int!){
-    reports{
+  query closeReports($lat: Float!, $lng: Float!, $max: Int!){
+    reportsCloseBy(lat: $lat, lng: $lng, max: $max){
       _id
       status
       source
       date
       votes
+      placeName
       location {
-        lat
-        lng
-        placeName
+        coordinates
       }
     }
   }
 `,{
-  options: {
-    variables: {
-      lat: state.coords.latitude,
-      lng: state.coords.longitude,
-      max: 500,
+  options: (props) => ({
+    variables: { 
+      lat: props.lat,
+      lng: props.lng,
+      max: props.max 
     }
-  },
-  props: ({ data: { loading, reports } }) => {
+  }),
+  props: ({data: {loading, reportsCloseBy, refetch}}) => {
     return {
       loading,
-      reports,
-    };
-  },
+      reportsCloseBy,
+      refetch,
+    }
+  }
 
 })
 
@@ -170,6 +117,9 @@ const withDownVoteMutations = graphql(gql`
 
 ReportList.propTypes = {
   reports: PropTypes.array,
+  lat: PropTypes.number,
+  lng: PropTypes.number,
+  max: PropTypes.number,
   voteUp: PropTypes.func.isRequired,
   voteDown: PropTypes.func.isRequired,
 };
