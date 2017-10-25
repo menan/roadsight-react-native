@@ -6,6 +6,7 @@ import ReportItem from './ReportItem';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
+
 class ReportList extends Component {
   constructor() {
     super();

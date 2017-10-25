@@ -2,7 +2,12 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import { Actions, Scene, Router, ActionConst, Modal } from 'react-native-router-flux';
+
 import ReportList from './ReportList';
+import NewReport from './NewReport'
+
+
 
 export default class App extends React.Component {
   constructor(...args) {
@@ -47,11 +52,21 @@ export default class App extends React.Component {
     }, options)
   }
 
+  loadNewReport(){
+    Actions.newReport()
+  }
+
 
   render() {
     return (
       <ApolloProvider client={this.client}>
-        <ReportList lat={this.state.coords.latitude} lng={this.state.coords.longitude} max={this.state.max} />
+
+        <Router>
+          <Scene key='root' component={Modal}>
+            <Scene key='reportList' component={ReportList} title='Reports' initial={true} onRight={() => this.loadNewReport()} rightTitle="New Report" type='replace' lat={this.state.coords.latitude} lng={this.state.coords.longitude} max={this.state.max} />
+            <Scene key='newReport' component={NewReport} title='New Reports' lat={this.state.coords.latitude} lng={this.state.coords.longitude} max={this.state.max} />
+          </Scene>
+        </Router>
       </ApolloProvider>
     );
   }

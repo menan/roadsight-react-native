@@ -17,10 +17,11 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "react-apollo": "^0.5.5",
     "apollo-client": "^0.4.15",
     "graphql-tag": "^0.1.14",
     "react": "16.0.0-alpha.12",
-    "react-native": "^0.48.4"
+    "react-apollo": "^0.5.5",
+    "react-native": "^0.48.4",
+    "react-native-router-flux": "^4.0.0-beta.22"
   }
 }
