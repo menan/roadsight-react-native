@@ -53,7 +53,16 @@ export default class App extends React.Component {
   }
 
   loadNewReport(){
-    Actions.newReport()
+
+    const reportsTitles = [
+      'Left Lane Closed',
+      'Right Lane Closed',
+      'Road Closed',
+      'Very Slow',
+      'Stagnant',
+      'Accident'
+    ]
+    Actions.newReport({titles: reportsTitles})
   }
 
 
