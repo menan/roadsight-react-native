@@ -5,17 +5,19 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class NewReport extends React.Component{
+    constructor(...props){
+        super(...props)
+
+        this.state = {
+            reportState: 0,
+        }
+
+    }
     render(){
         return(
             <View>
                 {this.props.titles.map((title) => {
-                    console.log('this', this)
-                    return (<Button
-                        style={{fontSize: 20, color: 'green'}}
-                        styleDisabled={{color: 'red'}}
-                        onPress={() => this._handlePress(title)}>
-                        {title}
-                    </Button>)
+                    return this._renderButton(title)
                 })}
             </View>
         )
@@ -25,9 +27,10 @@ class NewReport extends React.Component{
     _renderButton(title){
         return(
             <Button
+                disabled={this.state.reportState == 1}
                 style={{fontSize: 20, color: 'green'}}
                 styleDisabled={{color: 'red'}}
-                onPress={() => this._handlePress}>
+                onPress={() => this._handlePress(title)}>
                 {title}
             </Button>
         )
@@ -35,21 +38,27 @@ class NewReport extends React.Component{
 
     _handlePress(title){
         console.log('reporting', title)
+        this.setState({
+            reportState: 1,
+        })
         this.props.createReport({
             status: title,
             source: 'iOS',
             placeName: 'Test Location Menan',
-            lat: -54.345245,
-            lng: -66.312412,
+            lat: this.props.lat,
+            lng: this.props.lng,
         })
         .then(({ data }) => {
             console.log('successfully reported', data)
-            // this.setState({
-            //     report: Object.assign({}, this.props.report, {votes: data.downVote.votes})
-            // })
+            this.setState({
+                reportState: 0,
+            })
         })
         .catch((error) => {
             console.log('there was an error sending the query', error);
+            this.setState({
+                reportState: 0,
+            })
         })
     }
 }

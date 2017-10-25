@@ -43,7 +43,7 @@ class ReportItem extends Component {
                 <Text>{report.date}</Text>
                 <Text>{report.source}</Text>
                 <Text>{report.votes || 0}</Text>
-                <Text>{report.location.placeName}</Text>
+                <Text>{report.placeName}</Text>
                 <Button 
                 onPress={this.upVote.bind(this)}
                 title="Up Vote"

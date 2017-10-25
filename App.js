@@ -62,7 +62,12 @@ export default class App extends React.Component {
       'Stagnant',
       'Accident'
     ]
-    Actions.newReport({titles: reportsTitles})
+    Actions.newReport({
+      titles: reportsTitles,
+      lat: this.state.coords.latitude,
+      lng: this.state.coords.longitude,
+      max: this.state.max
+    })
   }
 
 
