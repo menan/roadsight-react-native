@@ -1,6 +1,0 @@
-dependencies: \
-  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/ReactCommon/yoga/yoga/YGNodeList.c \
-  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/ReactCommon/yoga/yoga/YGNodeList.h \
-  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/ReactCommon/yoga/yoga/YGMacros.h \
-  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/ReactCommon/yoga/yoga/Yoga.h \
-  /Users/mvadivel1/Projects/roadsight/node_modules/react-native/ReactCommon/yoga/yoga/YGEnums.h
