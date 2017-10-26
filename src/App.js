@@ -38,7 +38,6 @@ export default class App extends React.Component {
 
   componentDidMount(){
     locationServices.getCurrentAddress().then((address) => {
-      console.log('got address data', address);
       if (!address) return;
       this.setState({
         locationData: address,
@@ -60,7 +59,7 @@ export default class App extends React.Component {
       'Very Slow',
       'Stagnant',
       'Accident'
-    ]
+    ];
 
     Actions.newReport({
       titles: reportsTitles,
@@ -68,7 +67,8 @@ export default class App extends React.Component {
       lng: this.state.coords.longitude,
       max: this.state.max,
       locationData: this.state.locationData,
-    })
+      locationServices: locationServices,
+    });
   }
 
 

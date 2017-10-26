@@ -21,7 +21,7 @@ class ReportList extends Component {
     this.setState({refreshing: true});
     refetch().then(() => {
       this.setState({refreshing: false});
-      console.log('done refreshing')
+      console.log('done refreshing');
     });
   }
 

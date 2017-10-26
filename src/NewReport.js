@@ -6,13 +6,30 @@ import gql from 'graphql-tag';
 
 class NewReport extends React.Component{
     constructor(...props){
-        super(...props)
+        super(...props);
 
         this.state = {
             reportState: 0,
-        }
+            address: this.props.locationData
+        };
 
     }
+
+    componentDidMount(){
+        const { locationServices } = this.props;
+        locationServices.pingLocation((addr) => {
+            console.log('address updated', addr);
+            this.setState({
+                address: addr
+            });
+        });
+    }
+
+    componentWillUnmount(){
+        const { locationServices } = this.props;
+        locationServices.expireTimer();
+    }
+
     render(){
         return(
             <View>
@@ -38,7 +55,7 @@ class NewReport extends React.Component{
         )
     }
     _getAdddress(){
-        const {formattedAddress, feature} = this.props.locationData
+        const {formattedAddress, feature} = this.state.address
         if (!feature){
             return formattedAddress
         }
@@ -54,8 +71,8 @@ class NewReport extends React.Component{
             status: title,
             source: Platform.OS,
             placeName: this._getAdddress(),
-            lat: this.props.lat,
-            lng: this.props.lng,
+            lat: this.state.address.position.lat,
+            lng: this.state.address.position.lng,
         })
         .then(({ data }) => {
             console.log('successfully reported', data)
@@ -68,6 +85,7 @@ class NewReport extends React.Component{
             this.setState({
                 reportState: 0,
             })
+            alert('Sorry an error occured.');
         })
     }
 }
