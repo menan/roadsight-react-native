@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Platform } from 'react-native';
 import Button from 'react-native-button';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -16,17 +16,19 @@ class NewReport extends React.Component{
     render(){
         return(
             <View>
-                {this.props.titles.map((title) => {
-                    return this._renderButton(title)
+                <Text>{this._getAdddress()}</Text>
+                {this.props.titles.map((title, row) => {
+                    return this._renderButton(title, row)
                 })}
             </View>
         )
     }
 
         
-    _renderButton(title){
+    _renderButton(title, i){
         return(
             <Button
+                key={i}
                 disabled={this.state.reportState == 1}
                 style={{fontSize: 20, color: 'green'}}
                 styleDisabled={{color: 'red'}}
@@ -34,6 +36,14 @@ class NewReport extends React.Component{
                 {title}
             </Button>
         )
+    }
+    _getAdddress(){
+        console.log('this address: ', this.props);
+        const {formattedAddress, feature} = this.props.locationData
+        if (!feature){
+            return formattedAddress
+        }
+        return feature
     }
 
     _handlePress(title){
@@ -43,8 +53,8 @@ class NewReport extends React.Component{
         })
         this.props.createReport({
             status: title,
-            source: 'iOS',
-            placeName: 'Test Location Menan',
+            source: Platform.OS,
+            placeName: this._getAdddress(),
             lat: this.props.lat,
             lng: this.props.lng,
         })

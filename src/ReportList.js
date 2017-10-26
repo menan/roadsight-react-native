@@ -1,4 +1,4 @@
-import { View, Text, ListView } from 'react-native';
+import { View, Text, ListView, RefreshControl } from 'react-native';
 import React, { Component, PropTypes } from 'react';
 import styles from './styles';
 import NoReports from './NoReports';
@@ -11,12 +11,23 @@ class ReportList extends Component {
   constructor() {
     super();
     this.renderRow = this.renderRow.bind(this);
+    this.state = {
+      refreshing: false
+    }
+  }
+
+  _onRefresh() {
+    const { refetch } = this.props;
+    this.setState({refreshing: true});
+    refetch().then(() => {
+      this.setState({refreshing: false});
+      console.log('done refreshing')
+    });
   }
 
 
-
   renderList() {
-    const { reportsCloseBy } = this.props;
+    const { reportsCloseBy, refetch } = this.props;
     if (reportsCloseBy && reportsCloseBy.length !== 0) {
       const ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2,
@@ -27,6 +38,12 @@ class ReportList extends Component {
         <ListView
           dataSource={ds.cloneWithRows(reportsCloseBy)}
           renderRow={this.renderRow}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh.bind(this)}
+            />
+          }
           style={styles.container}
         />
       );
@@ -49,7 +66,6 @@ class ReportList extends Component {
   }
 
   render() {
-    console.log('state',this.state, 'props', this.props)
     const { loading } = this.props;
     return (
       <View style={styles.container}>
