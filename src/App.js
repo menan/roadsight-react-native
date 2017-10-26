@@ -7,9 +7,10 @@ import { Actions, Scene, Router, ActionConst, Modal } from 'react-native-router-
 import Geocoder from 'react-native-geocoder';
 
 import ReportList from './ReportList';
-import NewReport from './NewReport'
+import NewReport from './NewReport';
+import LocationServices from './utilities/LocationServices';
 
-
+const locationServices = new LocationServices();
 
 export default class App extends React.Component {
   constructor(...args) {
@@ -36,43 +37,20 @@ export default class App extends React.Component {
 
 
   componentDidMount(){
-    this.getLocation()
-  }
-
-  getLocation(){
-    const options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
-    }
-
-    
-    navigator.geolocation.getCurrentPosition((response) => {
-      if (!response) return;
-      this.geocode({
-        lat: response.coords.latitude,
-        lng: response.coords.longitude,
+    locationServices.getCurrentAddress().then((address) => {
+      console.log('got address data', address);
+      if (!address) return;
+      this.setState({
+        locationData: address,
+        lat: address.position.lat,
+        lng: address.position.lng,
       });
-      this.setState({
-        coords: response.coords
-      })
-    }, function error(err){
-      console.log('error locating you', err)
-    }, options)
-  }
-  
-  geocode(coordinates){
-    Geocoder.geocodePosition(coordinates).then(res => {
-      console.log('geocoded address', res)
-
-      if (!res || res.length == 0) return;
-
-      this.setState({
-        locationData: res[0],
-      })
     })
-    .catch(err => console.log(err))
+    .catch((err) => {
+      console.log('Error occured: ', err);
+    });
   }
+
 
   loadNewReport(){
     const reportsTitles = [
@@ -83,6 +61,7 @@ export default class App extends React.Component {
       'Stagnant',
       'Accident'
     ]
+
     Actions.newReport({
       titles: reportsTitles,
       lat: this.state.coords.latitude,
@@ -94,7 +73,6 @@ export default class App extends React.Component {
 
 
   render() {
-    console.log('this state', this.state)
     return (
       <ApolloProvider client={this.client}>
         <Router>

@@ -38,7 +38,6 @@ class NewReport extends React.Component{
         )
     }
     _getAdddress(){
-        console.log('this address: ', this.props);
         const {formattedAddress, feature} = this.props.locationData
         if (!feature){
             return formattedAddress
