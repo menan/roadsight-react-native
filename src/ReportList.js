@@ -66,6 +66,7 @@ class ReportList extends Component {
   }
 
   render() {
+    console.log('ReportsList', this.props)
     const { loading } = this.props;
     return (
       <View style={styles.container}>

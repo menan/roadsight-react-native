@@ -44,6 +44,15 @@ export default class App extends React.Component {
         lat: address.position.lat,
         lng: address.position.lng,
       });
+
+      Actions.refresh({
+        lat: this.state.lat,
+        lng: this.state.lng,
+        max: this.state.max,
+        locationData: this.state.locationData,
+        locationServices: locationServices,
+      })
+      
     })
     .catch((err) => {
       console.log('Error occured: ', err);
