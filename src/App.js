@@ -49,7 +49,7 @@ export default class App extends React.Component {
         lat: this.state.lat,
         lng: this.state.lng,
         max: this.state.max,
-        locationData: this.state.locationData,
+        locationData: address,
         locationServices: locationServices,
       })
       

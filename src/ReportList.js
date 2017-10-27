@@ -25,10 +25,13 @@ class ReportList extends Component {
     });
   }
 
+  onEnter(){
+    console.log('hello world.');
+  }
 
   renderList() {
     const { reportsCloseBy, refetch } = this.props;
-    if (reportsCloseBy && reportsCloseBy.length !== 0) {
+    // if (reportsCloseBy && reportsCloseBy.length !== 0) {
       const ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2,
       });
@@ -47,11 +50,11 @@ class ReportList extends Component {
           style={styles.container}
         />
       );
-    }
+    // }
 
-    return (
-      <NoReports />
-    );
+    // return (
+    //   <NoReports />
+    // );
   }
 
   renderRow(report) {
