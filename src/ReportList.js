@@ -1,6 +1,5 @@
-import { View, Text, ListView, RefreshControl } from 'react-native';
+import { View, Text, ListView, RefreshControl, StyleSheet } from 'react-native';
 import React, { Component, PropTypes } from 'react';
-import styles from './styles';
 import NoReports from './NoReports';
 import ReportItem from './ReportItem';
 import { graphql } from 'react-apollo';
@@ -73,8 +72,8 @@ class ReportList extends Component {
     console.log('ReportsList', this.props)
     const { loading } = this.props;
     return (
-      <View style={styles.container}>
-        { loading ? <Text>Loading...</Text> : this.renderList()}
+      <View style={styles.loadingContainer}>
+        { loading ? <Text style={styles.loadingText}>Loading reports round you...</Text> : this.renderList()}
       </View>
     );
   }
@@ -146,5 +145,18 @@ ReportList.propTypes = {
   voteDown: PropTypes.func.isRequired,
 };
 
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  reportsList: {
+      backgroundColor: 'white',
+  },
+  loadingText: {
+    fontSize: 15,
+  }
+})
 
 export default withUpVoteMutations(withDownVoteMutations(withAllReports(ReportList)));

@@ -1,6 +1,5 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import React, { Component, PropTypes } from 'react';
-import styles from './styles';
 
 class ReportList extends Component {
 
@@ -10,12 +9,22 @@ class ReportList extends Component {
 
     render(){
         return (
-            <View>
+            <View style={styles.container}>
                 <Text>No reports found.</Text>
             </View>
         )
     }
 }
+
+
+const styles = StyleSheet.create({
+    
+        container: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center'
+        }
+    });
 
 
 export default ReportList
