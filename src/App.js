@@ -32,7 +32,7 @@ export default class App extends React.Component {
         formattedAddress: '19 Daybreak Street, Ottawa',
         feature: '19 Daybreak Street'
       },
-    }
+    };
   }
 
 
@@ -85,9 +85,9 @@ export default class App extends React.Component {
     return (
       <ApolloProvider client={this.client}>
         <Router>
-          <Scene key='root' component={Modal}>
+          <Scene key='root' component={Modal} modal>
             <Scene key='reportList' component={ReportList} title='Reports' initial={true} onRight={() => this.loadNewReport()} rightTitle="New Report" type='replace' lat={this.state.coords.latitude} lng={this.state.coords.longitude} max={this.state.max} />
-            <Scene key='newReport' component={NewReport} title='New Reports' lat={this.state.coords.latitude} lng={this.state.coords.longitude} max={this.state.max} locationData={this.state.locationData}/>
+            <Scene key='newReport' component={NewReport} title='New Reports' lat={this.state.coords.latitude} lng={this.state.coords.longitude} max={this.state.max} locationData={this.state.locationData} hideNavBar/>
           </Scene>
         </Router>
       </ApolloProvider>

@@ -1,15 +1,16 @@
 import React from 'react';
 import { Text, View, Platform } from 'react-native';
-import Button from 'react-native-button';
+import Button from 'apsl-react-native-button';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import styles from './styles';
 
 class NewReport extends React.Component{
     constructor(...props){
         super(...props);
 
         this.state = {
-            reportState: 0,
+            reporting: false,
             address: this.props.locationData
         };
 
@@ -32,8 +33,8 @@ class NewReport extends React.Component{
 
     render(){
         return(
-            <View>
-                <Text>{this._getAdddress()}</Text>
+            <View style={styles.newReport}>
+                <Text style={styles.addressTitle}>{this._getAdddress()}</Text>
                 {this.props.titles.map((title, row) => {
                     return this._renderButton(title, row)
                 })}
@@ -46,9 +47,10 @@ class NewReport extends React.Component{
         return(
             <Button
                 key={i}
-                disabled={this.state.reportState == 1}
-                style={{fontSize: 20, color: 'green'}}
-                styleDisabled={{color: 'red'}}
+                disabled={this.state.reporting}
+                style={{backgroundColor: 'green'}}
+                textStyle={{fontSize: 20,}}
+                disabledStyle={{color: 'red'}}
                 onPress={() => this._handlePress(title)}>
                 {title}
             </Button>
@@ -65,7 +67,7 @@ class NewReport extends React.Component{
     _handlePress(title){
         console.log('reporting', title)
         this.setState({
-            reportState: 1,
+            reporting: true,
         })
         this.props.createReport({
             status: title,
@@ -77,13 +79,13 @@ class NewReport extends React.Component{
         .then(({ data }) => {
             console.log('successfully reported', data)
             this.setState({
-                reportState: 0,
+                reporting: false,
             })
         })
         .catch((error) => {
             console.log('there was an error sending the query', error);
             this.setState({
-                reportState: 0,
+                reporting: false,
             })
             alert('Sorry an error occured.');
         })

@@ -18,12 +18,13 @@
   },
   "dependencies": {
     "apollo-client": "^0.4.15",
+    "apsl-react-native-button": "^3.1.0",
     "graphql-tag": "^0.1.14",
     "react": "16.0.0-alpha.12",
     "react-apollo": "^0.5.5",
     "react-native": "^0.48.4",
-    "react-native-button": "^2.1.0",
     "react-native-geocoder": "^0.5.0",
-    "react-native-router-flux": "^4.0.0-beta.22"
+    "react-native-router-flux": "^4.0.0-beta.22",
+    "react-native-vector-icons": "^4.4.2"
   }
 }
