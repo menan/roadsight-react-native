@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, View, Platform } from 'react-native';
+import { Text, View, Platform, StyleSheet } from 'react-native';
 import Button from 'apsl-react-native-button';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import styles from './styles';
+// import Icon from 'react-native-vector-icons/Ionicons';
 
 class NewReport extends React.Component{
     constructor(...props){
@@ -47,10 +47,10 @@ class NewReport extends React.Component{
         return(
             <Button
                 key={i}
-                disabled={this.state.reporting}
-                style={{backgroundColor: 'green'}}
-                textStyle={{fontSize: 20,}}
-                disabledStyle={{color: 'red'}}
+                isDisabled={this.state.reporting}
+                style={styles.reportButton}
+                textStyle={styles.reportButtonText}
+                disabledStyle={styles.reportButtonDisabled}
                 onPress={() => this._handlePress(title)}>
                 {title}
             </Button>
@@ -111,6 +111,40 @@ mutation createReport($status: String!, $source: String!, $placeName: String!, $
 props: ({ mutate }) => ({
   createReport: ({ status,  source, placeName, lat, lng}) => mutate({ variables: { status,  source, placeName, lat, lng } }),
 }),
+});
+
+
+const styles = StyleSheet.create({
+
+    reportTitle: {
+        textAlign: 'center',
+    },
+    reportButton: {
+        backgroundColor: '#3ab654',
+        borderWidth: 0,
+        borderRadius: 22,
+    },
+    reportButtonText: {
+        fontSize: 14,
+        color: 'white',
+    },
+    newReport:{
+        flex: 1,
+        padding: 5,
+        paddingTop: 20,
+        backgroundColor: 'white'
+        
+    },
+    addressTitle: {
+        paddingTop: 5,
+        paddingBottom: 10,
+        textAlign: 'center',
+        fontSize: 25,
+    },
+    reportButtonDisabled: {
+        backgroundColor: 'gray',
+    }
+
 });
 
 export default withNewReportMutations(NewReport);

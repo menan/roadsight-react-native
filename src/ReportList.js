@@ -47,7 +47,7 @@ class ReportList extends Component {
               onRefresh={this._onRefresh.bind(this)}
             />
           }
-          style={styles.container}
+          style={styles.reportsList}
         />
       );
     // }
@@ -60,6 +60,7 @@ class ReportList extends Component {
   renderRow(report) {
     return (
       <ReportItem
+        style={styles.reportItem}
         report={report}
         key={report._id}
         onVoteUp={this.props.voteUp}

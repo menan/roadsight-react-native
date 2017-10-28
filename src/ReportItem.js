@@ -1,6 +1,7 @@
-import { View, Text, Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import Button from 'apsl-react-native-button';
 import React, { Component, PropTypes } from 'react';
-import styles from './styles';
+import { timeSince } from './utilities/timeSince'
 
 class ReportItem extends Component {
 
@@ -40,24 +41,54 @@ class ReportItem extends Component {
         return (
             <View style={styles.reportItem}>
                 <Text>{report.status}</Text>
-                <Text>{report.date}</Text>
+                <Text>{timeSince(report.date)}</Text>
                 <Text>{report.source}</Text>
                 <Text>{report.votes || 0}</Text>
                 <Text>{report.placeName}</Text>
-                <Button 
-                onPress={this.upVote.bind(this)}
-                title="Up Vote"
-                color="#841584"
-                />
-                <Button 
-                onPress={this.downVote.bind(this)}
-                title="Down Vote"
-                color="#841584"
-                />
+                <View style={styles.buttonContent}>
+                    <Button 
+                        onPress={this.upVote.bind(this)}
+                        textStyle={styles.reportsButtonText}
+                        style={styles.reportsButton}
+                        >
+                        Vote Up
+                    </Button>
+                    <Button 
+                        onPress={this.downVote.bind(this)}
+                        textStyle={styles.reportsButtonText}
+                        style={styles.reportsButton}
+                        >
+                        Vote Down
+                    </Button>
+                </View>
             </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+
+    reportItem: {
+        borderWidth: 4,
+        borderColor: '#3b5369',
+        backgroundColor: '#3ab654',
+        borderRadius: 10,
+        padding: 5,
+        margin: 10
+
+    },
+    reportsButton: {
+        backgroundColor: 'white',
+        borderWidth: 0,
+        borderRadius: 22,
+    },
+    reportsButtonText: {
+        fontSize: 14,
+    },
+    buttonContent: {
+        marginTop: 5,
+    }
+});
 
 
 export default ReportItem
