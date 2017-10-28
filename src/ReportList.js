@@ -30,6 +30,7 @@ class ReportList extends Component {
 
   renderList() {
     const { reportsCloseBy, refetch } = this.props;
+    console.log('reports closeby ', reportsCloseBy)
     // if (reportsCloseBy && reportsCloseBy.length !== 0) {
       const ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2,
@@ -37,17 +38,19 @@ class ReportList extends Component {
 
 
       return (
-        <ListView
-          dataSource={ds.cloneWithRows(reportsCloseBy)}
-          renderRow={this.renderRow}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this._onRefresh.bind(this)}
-            />
-          }
+        <View style={styles.container}>
+          <ListView
           style={styles.reportsList}
-        />
+            dataSource={ds.cloneWithRows(reportsCloseBy)}
+            renderRow={this.renderRow}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh.bind(this)}
+              />
+            }
+          />
+        </View>
       );
     // }
 
@@ -72,9 +75,7 @@ class ReportList extends Component {
     console.log('ReportsList', this.props)
     const { loading } = this.props;
     return (
-      <View style={styles.loadingContainer}>
-        { loading ? <Text style={styles.loadingText}>Loading reports round you...</Text> : this.renderList()}
-      </View>
+      loading ? <View style={styles.loadingContainer}><Text style={styles.loadingText}>Loading reports round you...</Text></View> : this.renderList()
     );
   }
 }
@@ -145,6 +146,7 @@ ReportList.propTypes = {
   voteDown: PropTypes.func.isRequired,
 };
 
+
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
@@ -158,5 +160,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   }
 })
+
 
 export default withUpVoteMutations(withDownVoteMutations(withAllReports(ReportList)));

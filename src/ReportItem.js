@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import Button from 'apsl-react-native-button';
 import React, { Component, PropTypes } from 'react';
-import { timeSince } from './utilities/timeSince'
+import timeSince from './utilities/timeSince'
 
 class ReportItem extends Component {
 
@@ -41,7 +41,7 @@ class ReportItem extends Component {
         return (
             <View style={styles.reportItem}>
                 <Text>{report.status}</Text>
-                <Text>{timeSince(report.date)}</Text>
+                <Text>{timeSince(report.date)} ago</Text>
                 <Text>{report.source}</Text>
                 <Text>{report.votes || 0}</Text>
                 <Text>{report.placeName}</Text>
